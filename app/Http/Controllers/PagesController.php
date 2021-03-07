@@ -30,13 +30,13 @@ class PagesController extends Controller
     }
     public function galleryPhoto()
     {
-        $galleries = Gallery::where('type', 'image')->orderBy('updated_at', 'desc')->paginate(5);
+        $galleries = Gallery::where('type', 'image')->orderBy('updated_at', 'desc')->paginate(6);
 
     	return view('pages.gallery-photo', compact('galleries'));
     }
     public function galleryVideo()
     {
-        $galleries = Gallery::where('type', 'video')->orderBy('updated_at', 'desc')->paginate(5);
+        $galleries = Gallery::where('type', 'video')->orderBy('updated_at', 'desc')->paginate(4);
 
         return view('pages.gallery-video', compact('galleries'));
     }

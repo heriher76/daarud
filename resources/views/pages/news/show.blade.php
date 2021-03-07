@@ -1,82 +1,93 @@
 @extends('layouts.app')
 
 @section('header')
-    @include('partials._header')
+    @include('partials._header-home')
 @endsection
 
 @section('banner')
-<section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb_iner text-center">
-                    <div class="breadcrumb_iner_item">
-                        <h2>{{ $news->title }}</h2>
-                        <p>Home<span>-</span>Berita</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="hero-wrap hero-wrap-2" style="background-image: url({{ url('front/images/bg_2.jpg') }});" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end">
+      <div class="col-md-9 ftco-animate pb-5">
+        <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Home <i class="fa fa-chevron-right"></i></a></span> <span>Profil <i class="fa fa-chevron-right"></i></span></p>
+        <h1 class="mb-3 bread">{{ $news->title }}</h1>
+      </div>
     </div>
+  </div>
 </section>
 @endsection
 
 @section('content')
-<section class="blog_area" style="padding-top: 50px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mb-5 mb-lg-0">
-                <div class="single-post">
-                  <div class="feature-img">
-                     <center><img class="img-fluid" style="height: 350px;" src="{{ url('berita/'.$news->thumbnail) }}" alt=""></center>
-                  </div>
-                  <div class="blog_details">
-                     <h2>{{ $news->title }}</h2>
-                     <ul class="blog-info-link mt-3 mb-4">
-                        <li>Penulis </li>
-                        <li><a href="#"><i class="far fa-user"></i> {{ $news->user->name }}</a></li>
-                     </ul>
-                     <p class="excert">{!! $news->description !!}</p>
-                  </div>
-                  <br>
-                  <div id="disqus_thread"></div>
-               </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget search_widget">
-                        <form action="#">
-                           <div class="form-group">
-                              <div class="input-group mb-3">
-                                 <input type="text" class="form-control" placeholder='Cari Berita'
-                                    onfocus="this.placeholder = ''" onblur="this.placeholder = 'Cari Berita'">
-                                 <div class="input-group-append">
-                                    <button class="btn" type="button"><i class="ti-search"></i></button>
-                                 </div>
-                              </div>
-                           </div>
-                           <button class="button rounded-0 primary-bg text-white w-100 btn_1" type="submit">Cari</button>
-                        </form>
-                     </aside>
-                    
-                    <aside class="single_sidebar_widget popular_post_widget">
-                        <h3 class="widget_title">Berita Terbaru</h3>
-                        @foreach($latestNews as $itemNews)
-                        <div class="media post_item">
-                            <img style="width: 10vw;" src="{{ url('berita/'.$itemNews->thumbnail) }}" alt="post">
-                            <div class="media-body">
-                                <a href="{{ url('/'.$itemNews->slug) }}">
-                                    <h3>{{ $itemNews->title }}</h3>
-                                </a>
-                                <p>{{ $itemNews->updated_at->formatLocalized('%A %d %B %Y') }}</p>
-                            </div>
-                        </div>
-                        @endforeach
-                    </aside>
-
-                </div>
-            </div>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 ftco-animate">
+        <p>
+          <center>
+            <img src="{{ url('berita/'.$news->thumbnail) }}" alt="" class="img-fluid">
+          </center>
+        </p>
+        <h2 class="mb-3">{{ $news->title }}</h2>
+        <p>{!! $news->description !!}</p>
+        <div class="tag-widget post-tag-container mb-5 mt-5">
+          <div class="tagcloud">
+            <a href="#" class="tag-cloud-link">{{ $news->user->name }}</a>
+            <a href="#" class="tag-cloud-link">{{ $news->updated_at->formatLocalized('%A %d %B %Y') }}</a>
+          </div>
         </div>
+        <br>
+        <div id="disqus_thread"></div>
+      </div> <!-- .col-md-8 -->
+      <div class="col-md-4 sidebar ftco-animate">
+        <div class="sidebar-box">
+          <form action="#" class="search-form">
+            <div class="form-group">
+              <span class="icon fa fa-search"></span>
+              <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+            </div>
+          </form>
+        </div>
+
+        <div class="sidebar-box ftco-animate">
+          <h3>Berita Terbaru</h3>
+          @foreach($latestNews as $itemNews)
+          <div class="block-21 mb-4 d-flex">
+            <a class="blog-img mr-4" style="background-image: url({{ url('berita/'.$itemNews->thumbnail) }});"></a>
+            <div class="text">
+              <h3 class="heading"><a href="{{ url('/'.$itemNews->slug) }}">{{ $itemNews->title }}</a></h3>
+              <div class="meta">
+                <div><a href="{{ url('/'.$itemNews->slug) }}"><span class="icon-calendar"></span> {{ $itemNews->updated_at->formatLocalized('%A %d %B %Y') }}</a></div>
+                <div><a href="{{ url('/'.$itemNews->slug) }}"><span class="icon-person"></span> {{ $itemNews->user->name }}</a></div>
+              </div>
+            </div>
+          </div>
+          @endforeach
+        </div>
+      </div>
+
     </div>
-</section>
+  </div>
+</section> <!-- .section -->
+@endsection
+
+@section('script')
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://daarud-dakwah.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 @endsection
