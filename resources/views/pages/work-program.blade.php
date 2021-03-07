@@ -1,95 +1,72 @@
 @extends('layouts.app')
 
 @section('header')
-	@include('partials._header')
+	@include('partials._header-home')
 @endsection
 
 @section('banner')
-<section class="breadcrumb breadcrumb_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb_iner text-center">
-                    <div class="breadcrumb_iner_item">
-                        <h2>Program Kerja</h2>
-                        <p>Beranda<span>/</span>Program Kerja</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="hero-wrap hero-wrap-2" style="background-image: url({{ url('front/images/bg_2.jpg') }});" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text js-fullheight align-items-end">
+      <div class="col-md-9 ftco-animate pb-5">
+        <p class="breadcrumbs"><span class="mr-2"><a href="{{ url('/') }}">Beranda <i class="fa fa-chevron-right"></i></a></span> <span>Program Kerja <i class="fa fa-chevron-right"></i></span></p>
+        <h1 class="mb-3 bread">Program Kerja</h1>
+      </div>
     </div>
+  </div>
 </section>
 @endsection
 
 @section('content')
-<!-- learning part start-->
-<section class="learning_part" style="padding-bottom: 50px; padding-top: 50px;">
+<section class="ftco-section ftco-no-pb ftco-no-pt">
     <div class="container">
-        <div class="row align-items-sm-center align-items-lg-stretch">
-            <div class="col-md-7 col-lg-7">
-                <div class="learning_img">
-                    <img src="{{ url('front/img/learning_img.png') }}" alt="">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-5">
-                <div class="learning_member_text">
-                    <h5>Program Kerja</h5>
-                    <h2>MAI Jawa Barat</h2>
-                    <ul>
-                        <div class="accordion" id="accordionExample">
-                            @foreach($workPrograms as $key => $workProgram)
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="{{ '#collapse'.$key }}" aria-expanded="true" aria-controls="{{ 'collapse'.$key }}">
-                                <li><span class="">{{ $key+1 }}. {{ $workProgram->name }}</span></li>
-                            </button>
-                            <div id="{{ 'collapse'.$key }}" class="collapse @if($key == 0) show @endif" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">{!! $workProgram->description !!}</div>
-                            </div>
-                            <br>
-                            @endforeach
+        <div class="row">
+            <div class="col-lg-12 wrap-about py-md-5 ftco-animate">
+              <div class="heading-section pr-md-5">
+                <ul>
+                    <div class="accordion" id="accordionExample">
+                        @foreach($workPrograms as $key => $workProgram)
+                        <button class="btn btn-default" type="button" data-toggle="collapse" data-target="{{ '#collapse'.$key }}" aria-expanded="true" aria-controls="{{ 'collapse'.$key }}" style="font-size: 20px;">
+                            <li><span class="">{{ $key+1 }}. {{ $workProgram->name }} <i class="fa fa-chevron-down"></i></span></li>
+                        </button>
+                        <div id="{{ 'collapse'.$key }}" class="collapse @if($key == 0) show @endif" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">{!! $workProgram->description !!}</div>
                         </div>
-                    </ul>
-                    <!-- <a href="#" class="btn_1">Read More</a> -->
-                </div>
+                        <br>
+                        @endforeach
+                    </div>
+                </ul>
+              </div>
             </div>
         </div>
     </div>
 </section>
-<!--::review_part start::-->
-<section class="testimonial_part">
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-xl-5">
-                <div class="section_tittle text-center">
-                    <p></p>
-                    <h2>Mitra Kerja Sama Kami</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="textimonial_iner owl-carousel">
-                    @foreach($cooperations as $cooperation)
-                    <div class="testimonial_slider">
-                        <div class="row">
-                            <div class="col-lg-6 col-xl-4 col-sm-8 align-self-center">
-                                <div class="testimonial_slider_text">
-                                    <h4>{{ $cooperation->name }}</h4>
-                                    <h5>{{ $cooperation->date }}</h5>
-                                    <p style="font-family: 'Calibri';">{!! $cooperation->description !!}</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-xl-4 col-sm-4">
-                                <div class="testimonial_slider_img">
-                                    <img src="{{ url('/kerja-sama/'.$cooperation->thumbnail) }}" alt="" style="max-height: 350px;">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
 
-        </div>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading">Mitra</span>
+        <h2>Mitra Kerja Sama</h2>
+      </div>
     </div>
+    <div class="row">
+        @foreach($cooperations as $cooperation)
+        <div class="col-md-4 ftco-animate">
+            <div class="block-7">
+                <div class="img" style="background-image: url({{ url('/kerja-sama/'.$cooperation->thumbnail) }});"></div>
+                  <div class="d-lg-flex align-items-center w-100 bg-light py-2 px-4">
+                    <h4>{{ $cooperation->name }}</h4>
+                    <h5>{{ $cooperation->date }}</h5>
+                  </div>
+                  <div class="d-lg-flex align-items-center w-100 bg-light py-2 px-4">
+                    <p style="font-family: 'Calibri';">{!! $cooperation->description !!}</p>
+                  </div>
+            </div>
+        </div>
+        @endforeach
+      </div>
+  </div>
 </section>
 @endsection

@@ -44,11 +44,11 @@ class PagesController extends Controller
     {
         $keyword = $request->get('search');
         if ($keyword == null) {
-            $news = News::orderBy('updated_at', 'desc')->where('publish_status', 1)->paginate(5);
+            $news = News::orderBy('updated_at', 'desc')->where('publish_status', 1)->paginate(8);
             $oldNews = News::orderBy('updated_at', 'asc')->where('publish_status', 1)->limit(5)->get(); 
             return view('pages.news', compact('news', 'oldNews'));
         } else {
-            $news = News::search($keyword)->orderBy('updated_at', 'DESC')->paginate(5);
+            $news = News::search($keyword)->orderBy('updated_at', 'DESC')->paginate(8);
             $oldNews = News::orderBy('updated_at', 'asc')->where('publish_status', 1)->limit(5)->get(); 
             return view('pages.search-news', compact('news', 'oldNews'));
         } 
