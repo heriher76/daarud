@@ -17,7 +17,7 @@ class PagesController extends Controller
 {
     public function home()
     {
-        $newsNews = News::orderBy('updated_at', 'desc')->limit(3)->get();
+        $newsNews = News::orderBy('updated_at', 'desc')->limit(4)->get();
         $galleries = Gallery::where('type', 'image')->orderBy('updated_at', 'desc')->limit(3)->get();
         $welcome = Welcome::first();
         $overview = Overview::first();
